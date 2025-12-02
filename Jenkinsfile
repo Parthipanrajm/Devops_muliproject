@@ -22,6 +22,16 @@ pipeline {
             }
         }
         
+        stage('SonarQube-Scan') {
+          environment {
+            scannerHome = tool 'parthu-scanner'
+          }
+          steps{
+            withSonarQubeEnv('parthu-sonar') {
+              sh "${scannerHome}/bin/sonar-scanner"
+            }
+          }
+        }
         stage('Hello') {
             steps {
                 echo 'Hello World'
