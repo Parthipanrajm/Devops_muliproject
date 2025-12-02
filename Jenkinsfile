@@ -1,36 +1,30 @@
 pipeline {
     agent {
-        node {
-            label 'maven'
+        node{
+            label 'slave-node'
         }
     }
-    
+
     environment {
         PATH = "/opt/apache-maven-3.9.11/bin:$PATH"
     }
-
     stages {
-        stage('Clone-Code') {
+        
+         stage('Clone code from GitHub') {
             steps {
-                git branch: 'main', url: 'https://github.com/vivek9325/tweet-ttrend.git'
+                git branch: 'main', url: 'https://github.com/Parthipanrajm/Devops_muliproject'
             }
         }
         
-        stage('Build')
-        {
+        stage('Build Stage') {
             steps {
                 sh 'mvn clean deploy'
             }
         }
-
-        stage('SonarQube-Scan') {
-            environment{
-                scannerHome = tool 'vk-sonar-scanner'
-            }
+        
+        stage('Hello') {
             steps {
-                withSonarQubeEnv('vk-sonarqube-server') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
+                echo 'Hello World'
             }
         }
     }
