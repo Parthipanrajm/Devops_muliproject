@@ -32,7 +32,7 @@ pipeline {
             }
           }
         }
-        stage('Docker build Image')
+        stage('Docker build Image') {
            steps {
                script {
                    sh """ 
@@ -41,6 +41,7 @@ pipeline {
                    """
                }
            }
+        }   
         stage('Hello') {
             steps {
                 echo 'Hello World'
