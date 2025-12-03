@@ -32,6 +32,15 @@ pipeline {
             }
           }
         }
+        stage('Docker build Image')
+           steps {
+               script {
+                   sh """ 
+                   echo 'Building Docker'
+                   docker build -t tweet-trend:latest -f /home/ubuntu/jenkins/workspace/tweet_multibranch_main/Dockerfile .
+                   """
+               }
+           }
         stage('Hello') {
             steps {
                 echo 'Hello World'
